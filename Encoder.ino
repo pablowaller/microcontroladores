@@ -57,3 +57,40 @@ void loop() {
     resetCounter();
   }
 }
+
+
+#define ENCODER_CLK 4
+#define ENCODER_DT 5
+int derecha = 0;
+int izquierda = 0;
+
+void setup() {
+  pinMode(ENCODER_CLK, INPUT);
+  pinMode(ENCODER_DT, INPUT);
+  attachInterrupt(digitalPinToInterrupt(ENCODER_CLK), readEncoder, FALLING);
+  Serial.begin(9600);
+}
+
+void Encoder() {
+  int dato_dig = digitalRead(ENCODER_DT);
+  if (dato_dig == HIGH) {
+    derecha++;
+  }
+  if (dato_dig == LOW) {
+    izquierda++;
+  }
+}
+
+void loop() {
+  // Realiza acciones en función de la dirección del giro
+  if (derecha > 0) {
+    Serial.print("Girando a la derecha: ");
+    Serial.println(derecha);
+    derecha = 0;  // Reinicia la variable
+  }
+  if (izquierda > 0) {
+    Serial.print("Girando a la izquierda: ");
+    Serial.println(izquierda);
+    izquierda = 0;  // Reinicia la variable
+  }
+}
