@@ -45,12 +45,12 @@ ret_1mseg
     movlw .100
     movwf Vb
 loop1
-    call ret_1seg
+    call ret_base
     DECFSZ Vb, f  
     goto loop1
     NOP
 
-ret_1seg
+ret_base
     ; Carga el valor 245 en el registro Vc
     movlw .245
     movwf Vc
