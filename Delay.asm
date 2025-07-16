@@ -1,55 +1,48 @@
-main
+cont    equ 0x20
+cont2   equ 0x21
+vA      equ 0x22
+vB      equ 0x23
+vC      equ 0x24
 
-clrf cont
-clrf cont2
+            ORG 0x000
+            GOTO main
+
+main
+            clrf cont
+            clrf cont2
 
 loop
 
-decfsz cont, f
-goto loop
-
-decfsz cont2, f
-goto loop
-nop
-
-call ret_1aseg
-NOP
-NOP
-
-goto main
+            call ret_1aseg  
+            NOP
+            NOP
+            GOTO main
 
 ret_1aseg
- clrf     vA
- movlw    .100
- movwf    vA
-
+            movlw .100
+            movwf vA
 loop1
- call     ret_100mseg
- DECfsz   vA,f
- goto loop1
- NOP
- RETURN
+            call ret_100mseg
+            decfsz vA, f
+            goto loop1
+            return
 
 ret_100mseg
- clrf    vB
- movlw   .100
- movwf   vB
-
+            movlw .100
+            movwf vB
 loop2
- call     ret_1mseg
- DECfsz   vB,f
- goto loop2
- NOP
- RETURN
+            call ret_1mseg
+            decfsz vB, f
+            goto loop2
+            return
 
 ret_1mseg
- clrf    vC
- movlw   .245
- movwf   vC
-
+            movlw .245
+            movwf vC
 loop3
- NOP
- DECfsz   vC,f
- goto loop2
- NOP
- RETURN
+            nop
+            decfsz vC, f
+            goto loop3
+            return
+
+            END
