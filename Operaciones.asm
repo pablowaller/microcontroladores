@@ -33,12 +33,13 @@ nop
 goto main
 
 sub_resta
-bcf bandera, 0
-movf var_2,w
-subwf var_1,w
-movwf resta
-btfsc STATUS, C
-return
+    bcf bandera, 0
+    movf var_2, w
+    subwf var_1, w
+    movwf resta
+    btfsc STATUS, C
+    return
+    goto es_negativo
 
 es_negativo
 comf resta, f
